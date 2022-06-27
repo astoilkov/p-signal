@@ -1,11 +1,11 @@
 {
-    "name": "{{data.name}}",
+    "name": "p-signal",
     "version": "1.0.0",
     "description": "{{data.description}}",
     "license": "MIT",
-    "repository": "astoilkov/{{data.name}}",
+    "repository": "astoilkov/p-signal",
     "funding": "https://github.com/sponsors/astoilkov",
-    "homepage": "https://github.com/astoilkov/{{data.name}}",
+    "homepage": "https://github.com/astoilkov/p-signal",
     "author": {
         "name": "Antonio Stoilkov",
         "email": "hello@astoilkov.com",
@@ -20,7 +20,7 @@
     "scripts": {
         "build": "tsc",
         "lint": "eslint --cache --format=pretty --ext=.ts ./",
-        "test": "yarn run build && yarn run lint && jest",
+        "test": "yarn run build && yarn run lint && jest --coverage --coverageReporters=text",
         "release": "yarn run build && np",
         "prettier": "prettier --write --config .prettierrc.yaml {*.ts,*.json}"
     },
