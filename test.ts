@@ -1,45 +1,97 @@
 /* eslint-env jest */
 
-import { isAbortError, pSignal } from '.'
+import { createAbortError, isAbortError, pSignal, pSignalSettle } from '.'
 
 describe('p-signal', () => {
-    it('aborted before it started', async () => {
-        const controller = new AbortController()
+    describe('pSignal()', () => {
+        it('aborted before it started', async () => {
+            const controller = new AbortController()
 
-        controller.abort()
+            controller.abort()
 
-        try {
-            await pSignal(controller.signal, wait())
-        } catch (err) {
-            expect(isAbortError(err)).toBe(true)
-        }
+            try {
+                await pSignal(controller.signal, wait())
+            } catch (err) {
+                expect(isAbortError(err)).toBe(true)
+            }
+        })
+
+        it('aborted after it started', async () => {
+            const controller = new AbortController()
+
+            const promise = pSignal(controller.signal, wait())
+
+            controller.abort()
+
+            try {
+                await promise
+            } catch (err) {
+                expect(isAbortError(err)).toBe(true)
+            }
+        })
+
+        it('promise successfully resolved when not aborted', async () => {
+            const controller = new AbortController()
+
+            await expect(async () => await pSignal(controller.signal, wait())).not.toThrow()
+        })
+
+        it('allow undefined as "signal" value', async () => {
+            await pSignal(undefined, wait())
+        })
     })
 
-    it('aborted after it started', async () => {
-        const controller = new AbortController()
+    describe('pSignalSettle()', () => {
+        it('successfully settled', async () => {
+            const controller = new AbortController()
+            const result = await pSignalSettle(controller.signal, wait())
 
-        const promise = pSignal(controller.signal, wait())
+            expect(result).toStrictEqual({ status: 'fulfilled', value: undefined })
+        })
 
-        controller.abort()
+        it('rejected', async () => {
+            const controller = new AbortController()
+            const result = await pSignalSettle(
+                controller.signal,
+                Promise.reject(new Error('error')),
+            )
 
-        try {
-            await promise
-        } catch (err) {
-            expect(isAbortError(err)).toBe(true)
-        }
+            expect(result).toStrictEqual({ status: 'rejected', reason: new Error('error') })
+        })
+
+        it('aborted', async () => {
+            const controller = new AbortController()
+            const promise = pSignalSettle(controller.signal, wait())
+
+            controller.abort()
+
+            const result = await promise
+
+            expect(result).toStrictEqual({
+                status: 'rejected',
+                reason: new DOMException('Operation aborted.', 'AbortError'),
+            })
+        })
     })
 
-    it('promise successfully resolved when not aborted', async () => {
-        const controller = new AbortController()
+    describe('createAbortError()', () => {
+        it('returns a DOMException', () => {
+            const error = createAbortError()
 
-        await expect(async () => await pSignal(controller.signal, wait())).not.toThrow()
-    })
+            expect(error).toBeInstanceOf(DOMException)
+            expect(error.name).toBe('AbortError')
+        })
 
-    it('allow undefined as "signal" value', async () => {
-        await pSignal(undefined, wait())
+        it('returns a DOMException with a message', () => {
+            const error = createAbortError('message')
+
+            expect(error).toBeInstanceOf(DOMException)
+            expect(error.name).toBe('AbortError')
+            expect(error.message).toBe('message')
+        })
     })
 })
 
-function wait() {
+function wait(): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, 1))
 }
