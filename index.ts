@@ -43,15 +43,11 @@ export async function pSignal<T>(signal: AbortSignal | undefined, promise: Promi
 export async function pSignalSettle<T>(
     signal: AbortSignal | undefined,
     promise: Promise<T>,
-): Promise<{ status: 'aborted' } | { status: 'fulfilled'; value: T }> {
+): Promise<{ status: 'rejected'; reason: unknown } | { status: 'fulfilled'; value: T }> {
     try {
         return { status: 'fulfilled', value: await pSignal(signal, promise) }
     } catch (err) {
-        if (isAbortError(err)) {
-            return { status: 'aborted' }
-        }
-
-        throw err
+        return { status: 'rejected', reason: err }
     }
 }
 
