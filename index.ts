@@ -19,11 +19,11 @@ export async function pSignal<T>(signal: AbortSignal | undefined, promise: Promi
     }
 
     let removeAbortListener = (): void => {}
-    const abortPromise = new Promise<DOMException>((resolve) => {
+    const abortPromise = new Promise<AbortedValue>((resolve) => {
         // we use `resolve()` instead of `reject()` because for some unknown reason(this can change in
         // the future) Chrome DevTools stops when calling `reject()` but doesn't when calling
         // `resolve()` and then throwing in the function body
-        const onAbort = (): void => resolve(createAbortError())
+        const onAbort = (): void => resolve(new AbortedValue())
         signal.addEventListener('abort', onAbort)
         removeAbortListener = (): void => signal.removeEventListener('abort', onAbort)
     })
@@ -32,7 +32,7 @@ export async function pSignal<T>(signal: AbortSignal | undefined, promise: Promi
 
     removeAbortListener()
 
-    if (isAbortError(result)) {
+    if (result instanceof AbortedValue) {
         // intentionally creating a new error because this one will have a better stacktrace
         throw createAbortError()
     }
@@ -55,6 +55,8 @@ export function isAbortError(value: unknown): value is DOMException {
     return value instanceof DOMException && value.name === 'AbortError'
 }
 
-export function createAbortError(message?: string): DOMException {
-    return new DOMException(message ?? 'Operation aborted.', 'AbortError')
+function createAbortError(): DOMException {
+    return new DOMException('The operation was aborted.', 'AbortError')
 }
+
+class AbortedValue {}

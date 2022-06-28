@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import { createAbortError, isAbortError, pSignal, pSignalSettle } from '.'
+import { isAbortError, pSignal, pSignalSettle } from '.'
 
 describe('p-signal', () => {
     describe('pSignal()', () => {
@@ -42,7 +42,7 @@ describe('p-signal', () => {
     })
 
     describe('pSignalSettle()', () => {
-        it('successfully settled', async () => {
+        it('settled', async () => {
             const controller = new AbortController()
             const result = await pSignalSettle(controller.signal, wait())
 
@@ -69,25 +69,8 @@ describe('p-signal', () => {
 
             expect(result).toStrictEqual({
                 status: 'rejected',
-                reason: new DOMException('Operation aborted.', 'AbortError'),
+                reason: new DOMException('The operation was aborted.', 'AbortError'),
             })
-        })
-    })
-
-    describe('createAbortError()', () => {
-        it('returns a DOMException', () => {
-            const error = createAbortError()
-
-            expect(error).toBeInstanceOf(DOMException)
-            expect(error.name).toBe('AbortError')
-        })
-
-        it('returns a DOMException with a message', () => {
-            const error = createAbortError('message')
-
-            expect(error).toBeInstanceOf(DOMException)
-            expect(error.name).toBe('AbortError')
-            expect(error.message).toBe('message')
         })
     })
 })
