@@ -12,7 +12,27 @@
         "url": "https://astoilkov.com"
     },
     "keywords": [
-        "{{data.keywords}}"
+        "AbortController",
+        "AbortSignal",
+        "AbortError",
+        "signal",
+        "abort",
+        "promise",
+        "cancel",
+        "cancelable",
+        "cancelation",
+        "settle",
+        "settled",
+        "resolved",
+        "fulfill",
+        "reject",
+        "fulfilled",
+        "rejected",
+        "error",
+        "async",
+        "await",
+        "promises",
+        "bluebird"
     ],
     "module": "index.js",
     "jsnext:main": "index.js",
