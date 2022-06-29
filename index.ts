@@ -28,7 +28,14 @@ export async function pSignal<T>(signal: AbortSignal | undefined, promise: Promi
         removeAbortListener = (): void => signal.removeEventListener('abort', onAbort)
     })
 
-    const result = await Promise.race([abortPromise, promise])
+    let result: T | AbortedValue
+    try {
+        result = await Promise.race([abortPromise, promise])
+    } catch (err) {
+        removeAbortListener()
+
+        throw err
+    }
 
     removeAbortListener()
 
