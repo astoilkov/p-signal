@@ -11,6 +11,7 @@
         "email": "hello@astoilkov.com",
         "url": "https://astoilkov.com"
     },
+    "type": "module",
     "keywords": [
         "AbortController",
         "AbortSignal",
