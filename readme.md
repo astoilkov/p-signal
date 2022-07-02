@@ -25,7 +25,7 @@ await pSignal(signal, doHeavyWork())
 
 Returns: `T` — the value returned by the promise or throws an error.
 
-You can also pass `undefined` as first parameter. Useful for methods that accept optional signal parameter:
+You can also pass `undefined` as first parameter. Useful for methods that accept an optional `signal` parameter:
 ```ts
 function readFiles(files: string[], options: { signal?: AbortSignal }) {
     const result = []
