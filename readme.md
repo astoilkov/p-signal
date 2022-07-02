@@ -36,21 +36,6 @@ function readFiles(files: string[], options: { signal?: AbortSignal }) {
 }
 ```
 
-#### `pSignalSettle<T>(signal: AbortSignal | undefined, promise: Promise<T>)`
-
-Returns: `{ status: 'rejected', reason: unknown } | { status: 'fulfilled', value: T }`
-
-Useful when you don't want a `try/catch` statement. Similar to [`Promise.allSettled()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) and [p-settle](https://github.com/sindresorhus/p-settle):
-```ts
-import { pSignal } from 'p-signal'
-
-const result = await pSignalSettle(signal, doHeavyWork())
-
-if (result.status === 'fulfilled') {
-    performNextStep()
-}
-```
-
 #### `isAbortError(value: unknown): value is DOMException`
 
 Returns: `boolean`

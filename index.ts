@@ -47,17 +47,6 @@ export async function pSignal<T>(signal: AbortSignal | undefined, promise: Promi
     return result
 }
 
-export async function pSignalSettle<T>(
-    signal: AbortSignal | undefined,
-    promise: Promise<T>,
-): Promise<{ status: 'rejected'; reason: unknown } | { status: 'fulfilled'; value: T }> {
-    try {
-        return { status: 'fulfilled', value: await pSignal(signal, promise) }
-    } catch (err) {
-        return { status: 'rejected', reason: err }
-    }
-}
-
 export function isAbortError(value: unknown): value is DOMException {
     return value instanceof DOMException && value.name === 'AbortError'
 }
