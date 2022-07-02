@@ -1,7 +1,11 @@
 {
     "compilerOptions": {
         "target": "ES6",
+
+        // previously "CommonJS", we now use "ES2015" to transpile TypeScript to "export default"
+        // instead of "exports.default ="
         "module": "ES2015",
+
         "esModuleInterop": true,
 
         // From what I understand while reading the docs "classic" was introduced first and "classic" is by
@@ -27,7 +31,7 @@
         "allowUnreachableCode": false,
         "noUncheckedIndexedAccess": true,
         "noFallthroughCasesInSwitch": true,
-        "forceConsistentCasingInFileNames": true,
+        "forceConsistentCasingInFileNames": true
     },
     "include": ["index.ts"]
 }
