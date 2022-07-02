@@ -5,13 +5,33 @@
     "license": "MIT",
     "repository": "astoilkov/p-signal",
     "funding": "https://github.com/sponsors/astoilkov",
-    "homepage": "https://github.com/astoilkov/p-signal",
     "author": {
         "name": "Antonio Stoilkov",
         "email": "hello@astoilkov.com",
         "url": "https://astoilkov.com"
     },
     "type": "module",
+    "exports": {
+        "default": "./index.js",
+        "types": "./index.d.ts"
+    },
+    "sideEffects": false,
+    "engines": {
+        "node": ">=12"
+    },
+    "scripts": {
+        "build": "tsc",
+        "lint": "eslint --cache --format=pretty --ext=.ts ./",
+        "test": "yarn run build && yarn run lint && jest --coverage --coverageReporters=text",
+        "release": "yarn run build && np",
+        "prettier": "prettier --write --config .prettierrc.yaml {*.ts,*.json}"
+    },
+    "files": [
+        "index.js",
+        "index.d.ts",
+        "src/*.js",
+        "src/*.d.ts"
+    ],
     "keywords": [
         "AbortController",
         "AbortSignal",
@@ -34,25 +54,6 @@
         "await",
         "promises",
         "bluebird"
-    ],
-    "module": "index.js",
-    "jsnext:main": "index.js",
-    "sideEffects": false,
-    "scripts": {
-        "build": "tsc",
-        "lint": "eslint --cache --format=pretty --ext=.ts ./",
-        "test": "yarn run build && yarn run lint && jest --coverage --coverageReporters=text",
-        "release": "yarn run build && np",
-        "prettier": "prettier --write --config .prettierrc.yaml {*.ts,*.json}"
-    },
-    "engines": {
-        "node": ">=12"
-    },
-    "files": [
-        "index.js",
-        "src/*.js",
-        "index.d.ts",
-        "src/*.d.ts"
     ],
     "devDependencies": {
         "@types/jest": "^28.1.1",
