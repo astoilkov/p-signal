@@ -1,10 +1,15 @@
-export async function pSignal<T>(signal: AbortSignal | undefined, promise: Promise<T>): Promise<T> {
+export async function pSignal<T>(
+    signal: AbortSignal | undefined,
+    value: Promise<T> | (() => Promise<T>),
+): Promise<T> {
+    const unwrappedValue = typeof value === 'function' ? value() : value
+
     // support `undefined` value for `signal` because commonly methods like `fetch()` support an
     // option called `signal` which can be `undefined`. in these cases just doing
     // `pSignal(options.signal, promise)` is a great option to not make conditionals when
     // `options.signal` is undefined
     if (signal === undefined) {
-        return await promise
+        return await unwrappedValue
     }
 
     if (signal.aborted) {
@@ -30,7 +35,7 @@ export async function pSignal<T>(signal: AbortSignal | undefined, promise: Promi
 
     let result: T | AbortedValue
     try {
-        result = await Promise.race([abortPromise, promise])
+        result = await Promise.race([abortPromise, unwrappedValue])
     } catch (err) {
         removeAbortListener()
 
