@@ -39,6 +39,21 @@ describe('p-signal', () => {
         it('allow undefined as "signal" value', async () => {
             await pSignal(undefined, wait())
         })
+
+        // passing both undefined and AbortSignal because they are in if condition branches
+        it('thrown error propagates', async () => {
+            await expect(async () => {
+                await pSignal(undefined, async () => {
+                    throw new Error('dummy')
+                })
+            }).rejects.toThrowError('dummy')
+
+            await expect(async () => {
+                await pSignal(new AbortController().signal, async () => {
+                    throw new Error('dummy')
+                })
+            }).rejects.toThrowError('dummy')
+        })
     })
 
     describe('isAbortError()', () => {
