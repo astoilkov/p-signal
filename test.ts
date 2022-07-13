@@ -40,6 +40,17 @@ describe('p-signal', () => {
             await pSignal(undefined, wait())
         })
     })
+
+    describe('isAbortError()', () => {
+        it('returns true for AbortError', () => {
+            expect(isAbortError(new DOMException('', 'AbortError'))).toBe(true)
+            expect(isAbortError(new DOMException('regardless of message', 'AbortError'))).toBe(true)
+        })
+
+        it('returns false for other errors', () => {
+            expect(isAbortError(new Error())).toBe(false)
+        })
+    })
 })
 
 function wait(): Promise<void> {
