@@ -18,7 +18,6 @@ export async function pSignal<T>(
         // - 😡 not like bluebird 3
         // - 😡 it was async in bluebird 2
         // - 😡 not like `p-cancelable`
-        await Promise.resolve()
 
         throw createAbortError()
     }

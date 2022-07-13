@@ -54,6 +54,18 @@ describe('p-signal', () => {
                 })
             }).rejects.toThrowError('dummy')
         })
+
+        it(`doesn't synchronously throw an error`, () => {
+            const throwFn = () => {
+                return pSignal(undefined, () => {
+                    throw new Error('dummy')
+                }).catch(() => {
+                    // swallow (intentionally)
+                })
+            }
+
+            expect(throwFn).not.toThrow()
+        })
     })
 
     describe('isAbortError()', () => {
