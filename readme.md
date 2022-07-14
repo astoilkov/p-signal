@@ -13,17 +13,27 @@ npm install p-signal
 
 ## Usage
 
+With a promise:
 ```ts
 import { pSignal } from 'p-signal'
 
-await pSignal(signal, doHeavyWork())
+await pSignal(signal, doLongWork())
+```
+
+With an async function:
+```ts
+import { pSignal } from 'p-signal'
+
+await pSignal(signal, async () => {
+    await doLongWork(await fetchData())
+})
 ```
 
 ## API
 
 #### `pSignal<T>(signal: AbortSignal | undefined, promise: Promise<T>): T`
 
-Returns: `T` — the value returned by the promise or throws an error.
+Returns: `T` — the value returned by the promise or throws an error if the promise is rejected.
 
 You can also pass `undefined` as first parameter. Useful for methods that accept an optional `signal` parameter:
 ```ts
@@ -71,8 +81,8 @@ try {
 
 ## Alternatives
 
-**Cancelable promises.** [p-cancelable](https://github.com/sindresorhus/p-cancelable) and [Bluebird](https://github.com/petkaantonov/bluebird) are possible repos that you can use to work with the concept of cancelable promises. Note that Bluebird last release was in 2019. I was using cancelable promises before getting the idea about `pSignal` and it was a nice experience.
+For the past years I've experimented with different ways to cancel promises. Unfortunately, a perfect solution doesn't exist because the design of JavaScript asynchronicity has inherent problems. Here are two alternatives I was using before coming up with the idea of `p-signal`:
 
-**[CAF](https://github.com/getify/CAF).** An elegant way to solve this problem. I recommend it if your codebase is in JavaScript. For TypeScript, it isn't ideal because it can't be correctly typed and doesn't have built-in types.
+**Cancelable promises.** [p-cancelable](https://github.com/sindresorhus/p-cancelable) and [Bluebird](https://github.com/petkaantonov/bluebird) are possible repos that you can use to work with the concept of cancelable promises. Note that Bluebird last release was in 2019. I was using cancelable promises before getting the idea about `pSignal`, and it was a nice experience.
 
-
+**[CAF](https://github.com/getify/CAF).** An elegant way to solve this problem. I recommend it if your codebase is in JavaScript. For TypeScript, it isn't ideal because it can't be correctly typed because it uses generators.
