@@ -17,7 +17,7 @@ With a promise:
 ```ts
 import { pSignal } from 'p-signal'
 
-await pSignal(signal, doLongWork())
+await pSignal(signal, fetch('https://example.com/todos'))
 ```
 
 With an async function:
@@ -25,7 +25,7 @@ With an async function:
 import { pSignal } from 'p-signal'
 
 await pSignal(signal, async () => {
-    await doLongWork(await fetchData())
+    await parseMarkdown(await fetchNote())
 })
 ```
 
