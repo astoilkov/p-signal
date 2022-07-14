@@ -1,6 +1,6 @@
 {
     "name": "p-signal",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "A simple way to cancel promises",
     "license": "MIT",
     "repository": "astoilkov/p-signal",
