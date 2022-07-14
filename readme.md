@@ -31,7 +31,7 @@ await pSignal(signal, async () => {
 
 ## API
 
-#### `pSignal<T>(signal: AbortSignal | undefined, promise: Promise<T>): T`
+#### `pSignal<T>(signal: AbortSignal | undefined, value: Promise<T> | (() => Promise<T>)): T`
 
 Returns: `T` — the value returned by the promise or throws an error if the promise is rejected.
 
