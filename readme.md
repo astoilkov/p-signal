@@ -35,7 +35,7 @@ await pSignal(signal, async () => {
 
 Returns: `T` — the value returned by the promise or throws an error if the promise is rejected.
 
-You can also pass `undefined` as first parameter. Useful for methods that accept an optional `signal` parameter:
+The first parameter accepts: `AbortSignal` or `undefined`. `undefined` as allowed type is useful for methods that accept an optional `signal` parameter:
 ```ts
 function readFiles(files: string[], options: { signal?: AbortSignal }) {
     const result = []
@@ -45,6 +45,8 @@ function readFiles(files: string[], options: { signal?: AbortSignal }) {
     return result
 }
 ```
+
+The second parameter accepts: a Promise, an asynchronous function, or a synchronous function that returns a Promise.
 
 #### `isAbortError(value: unknown): value is DOMException`
 
