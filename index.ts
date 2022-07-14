@@ -44,7 +44,7 @@ export async function pSignal<T>(
     removeAbortListener()
 
     if (result instanceof AbortedValue) {
-        // intentionally creating a new error because this one will have a better stacktrace
+        // intentionally creating a new error because this one will have a better stack trace
         throw createAbortError()
     }
 
