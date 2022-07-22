@@ -32,6 +32,10 @@ export async function pSignal<T>(
         removeAbortListener = (): void => signal.removeEventListener('abort', onAbort)
     })
 
+    // i use it to distinguish between an aborted promise and a promise that was resolved when
+    // calling Promise.race()
+    class AbortedValue {}
+
     let result: T | AbortedValue
     try {
         result = await Promise.race([abortPromise, unwrappedValue])
@@ -58,5 +62,3 @@ export function isAbortError(value: unknown): value is DOMException {
 function createAbortError(): DOMException {
     return new DOMException('The operation was aborted.', 'AbortError')
 }
-
-class AbortedValue {}
