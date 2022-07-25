@@ -1,8 +1,6 @@
-/* eslint-env jest */
+import { isAbortError, pSignal } from '..'
 
-import { isAbortError, pSignal } from '.'
-
-describe('p-signal', () => {
+describe('p-signal (browser)', () => {
     describe('pSignal()', () => {
         it('aborted before it started', async () => {
             const controller = new AbortController()
@@ -76,6 +74,7 @@ describe('p-signal', () => {
 
         it('returns false for other errors', () => {
             expect(isAbortError(new Error())).toBe(false)
+            expect(isAbortError(new DOMException())).toBe(false)
         })
     })
 })
