@@ -15,7 +15,7 @@ npm install p-signal
 
 - These days, the JavaScript API has a lot of async methods. Applications are using async functions more and more. However, there isn't a good solution for canceling promises. See [Alternatives](#alternatives) section for more details.
 - I've researched this topic for years. The solution looks simple, but it's a culmination of a lot of trial and error.
-- Supports browser, React Native, Node (if you polyfill AbortController).
+- Supports browser, React Native, Node 16+ (if you polyfill AbortController).
 - I aim for high-quality with [my open-source principles](https://astoilkov.com/my-open-source-principles).
 
 ## Usage
