@@ -26,7 +26,9 @@ export async function pSignal<T>(
     // calling Promise.race()
     class AbortedValue {}
 
-    let removeAbortListener = (): void => {}
+    let removeAbortListener =
+        // istanbul ignore next
+        (): void => {}
     const abortPromise = new Promise<AbortedValue>((resolve) => {
         // we use `resolve()` instead of `reject()` because for some unknown reason(this can change in
         // the future) Chrome DevTools stops when calling `reject()` but doesn't when calling
