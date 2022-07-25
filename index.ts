@@ -22,6 +22,10 @@ export async function pSignal<T>(
         throw createAbortError()
     }
 
+    // i use it to distinguish between an aborted promise and a promise that was resolved when
+    // calling Promise.race()
+    class AbortedValue {}
+
     let removeAbortListener = (): void => {}
     const abortPromise = new Promise<AbortedValue>((resolve) => {
         // we use `resolve()` instead of `reject()` because for some unknown reason(this can change in
@@ -31,10 +35,6 @@ export async function pSignal<T>(
         signal.addEventListener('abort', onAbort)
         removeAbortListener = (): void => signal.removeEventListener('abort', onAbort)
     })
-
-    // i use it to distinguish between an aborted promise and a promise that was resolved when
-    // calling Promise.race()
-    class AbortedValue {}
 
     let result: T | AbortedValue
     try {
