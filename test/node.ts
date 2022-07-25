@@ -71,14 +71,21 @@ describe('p-signal (node)', () => {
     })
 
     describe('isAbortError()', () => {
-        it('returns true for AbortError', () => {
-            const error1 = new Error('The operation was aborted.')
-            const error2 = new Error('regardless of the error message')
-            error1.name = 'AbortError'
-            error2.name = 'AbortError'
-            expect(isAbortError(error1)).toBe(true)
-            expect(isAbortError(error2)).toBe(true)
-        })
+        if (typeof DOMException === 'undefined') {
+            it('returns true for AbortError', () => {
+                const error1 = new Error('The operation was aborted.')
+                const error2 = new Error('regardless of the error message')
+                error1.name = 'AbortError'
+                error2.name = 'AbortError'
+                expect(isAbortError(error1)).toBe(true)
+                expect(isAbortError(error2)).toBe(true)
+            })
+        } else {
+            it('returns true for AbortError', () => {
+                expect(isAbortError(new DOMException('', 'AbortError'))).toBe(true)
+                expect(isAbortError(new DOMException('regardless of message', 'AbortError'))).toBe(true)
+            })
+        }
 
         it('returns false for other errors', () => {
             expect(isAbortError(new Error())).toBe(false)

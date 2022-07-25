@@ -58,7 +58,11 @@ export async function pSignal<T>(
 }
 
 export function isAbortError(value: unknown): value is Error {
-    return value instanceof Error && value.name === 'AbortError'
+    if (typeof DOMException === 'undefined') {
+        return value instanceof Error && value.name === 'AbortError'
+    }
+
+    return value instanceof DOMException && value.name === 'AbortError'
 }
 
 function createAbortError(): Error {
