@@ -1,7 +1,7 @@
 {
     "name": "p-signal",
     "version": "3.0.1",
-    "description": "A simple way to cancel promises and async functions",
+    "description": "Better way to cancel promises and async functions",
     "license": "MIT",
     "repository": "astoilkov/p-signal",
     "funding": "https://github.com/sponsors/astoilkov",
