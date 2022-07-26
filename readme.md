@@ -11,6 +11,11 @@
 npm install p-signal
 ```
 
+Deno:
+```ts
+import { pSignal } from  'https://deno.land/x/p_signal/index.ts'
+```
+
 ## Why
 
 - These days, the JavaScript API has a lot of async methods. Applications are using async functions more and more. However, there isn't a good solution for canceling promises. See [Alternatives](#alternatives) section for more details.
