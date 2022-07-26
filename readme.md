@@ -18,8 +18,11 @@ import { pSignal } from  'https://deno.land/x/p_signal/index.ts'
 
 ## Why
 
-- These days, the JavaScript API has a lot of async methods. Applications are using async functions more and more. However, there isn't a good solution for canceling promises. See [Alternatives](#alternatives) section for more details.
+Over the few years working with async code has become more popular and thus more important. However, there isn't a good solution for canceling promises (see [Alternatives](#alternatives) section for explanation). A common pattern is for a task to be canceled or interrupted with the need to compute the latest value.  `p-signal` helps you with this new arising problem.
+
+Also:
 - I've researched this topic for months. The solution looks simple, but it's a culmination of a lot of trial and error.
+- Cancelation as a technique can yield performance improvements because you avoid executing code when a task is canceled.
 - Supports browsers, React Native, Node 18+, Node 16 (if you [polyfill AbortController](https://github.com/mo/abortcontroller-polyfill)), Deno.
 - I aim for high-quality with [my open-source principles](https://astoilkov.com/my-open-source-principles).
 
