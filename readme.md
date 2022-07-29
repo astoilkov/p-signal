@@ -18,13 +18,13 @@ import { pSignal } from  'https://deno.land/x/p_signal/index.ts'
 
 ## Why
 
-In the past few years, async implementations are on the rise. Canceling promises is an important part of working with async code. For example, a very common pattern is for a user task to be canceled or interrupted with the need to compute the latest value. However a good solution doesn't exist (see [Alternatives](#alternatives) section for explanation).  In this new async world `p-signal` can help.
+In the past few years, async implementations are on the rise. Canceling promises is an important part of working with async code. For example, a very common pattern is for a user task to be canceled or interrupted with the need to compute the latest value. However a good solution for cancelation doesn't exist (see [Alternatives](#alternatives) section for explanation). In this new async world `p-signal` can help.
 
 Also:
 - Future-proof — based on [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) and [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal).
 - Cancellation as a technique can yield performance improvements because you don't continue executing the canceled task.
-- I've _researched this topic for months. The solution looks simple, but it's a culmination of a lot of trial and error.
-- Supports browsers, React Native, Node 18_+, Node 16 (if you [polyfill AbortController](https://github.com/mo/abortcontroller-polyfill)), Deno.
+- I've researched this topic for months. The solution looks simple, but it's a culmination of a lot of trial and error.
+- Supports browsers, React Native, Node 18+, Node 16 (if you [polyfill AbortController](https://github.com/mo/abortcontroller-polyfill)), Deno.
 - I aim for high-quality with [my open-source principles](https://astoilkov.com/my-open-source-principles).
 
 ## Usage
