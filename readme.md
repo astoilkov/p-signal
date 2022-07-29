@@ -104,3 +104,9 @@ For the past years I've experimented with different ways to cancel promises. Unf
 **Cancelable promises.** [p-cancelable](https://github.com/sindresorhus/p-cancelable) and [Bluebird](https://github.com/petkaantonov/bluebird) are possible repos that you can use to work with the concept of cancelable promises. Note that Bluebird last release was in 2019. I was using cancelable promises before getting the idea about `pSignal`, and it was a nice experience.
 
 **[CAF](https://github.com/getify/CAF).** An elegant way to solve this problem. I recommend it if your codebase is in JavaScript. For TypeScript, it isn't ideal because it can't be correctly typed because it uses generators.
+
+## Related
+
+- [p-cancelable](https://github.com/sindresorhus/p-cancelable) — Create a promise that can be canceled
+- [promise-fun](https://github.com/sindresorhus/promise-fun) — Promise packages, patterns, chat, and tutorials
+- [CAF](https://github.com/getify/CAF) — Cancelable Async Flows (CAF)
