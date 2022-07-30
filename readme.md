@@ -33,7 +33,7 @@ Also:
 import { pSignal, isAbortError } from 'p-signal'
 
 try {
-    await pSignal(AbortSignal.timeout(200), longRunningTask())
+    const result = await pSignal(AbortSignal.timeout(200), longRunningTask())
 } catch (err) {
     if (isAbortError(err)) {
         // operation timed out
