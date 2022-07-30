@@ -29,20 +29,23 @@ Also:
 
 ## Usage
 
-With a promise:
 ```ts
-import { pSignal } from 'p-signal'
+import { pSignal, isAbortError } from 'p-signal'
 
-await pSignal(signal, fetch('https://example.com/todos'))
-```
+try {
+    await pSignal(signal, longRunningTask())
+} catch (err) {
+    if (isAbortError(err)) {
+        // operation was cancelled
+        return
+    }
+    
+    throw err
+}
 
-With an async function:
-```ts
-import { pSignal } from 'p-signal'
-
-await pSignal(signal, async () => {
-    await parseMarkdown(await fetchNote())
-})
+async function longRunningTask() {
+    return await parseText(currentFile.text)
+}
 ```
 
 ## API
