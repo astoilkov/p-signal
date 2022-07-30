@@ -11,11 +11,9 @@ describe('p-signal (node)', () => {
 
             controller.abort()
 
-            try {
-                await pSignal(controller.signal, wait())
-            } catch (err) {
-                expect(isAbortError(err)).toBe(true)
-            }
+            await expect(pSignal(controller.signal, wait())).rejects.toThrow(
+                'The operation was aborted.',
+            )
         })
 
         it('aborted after it started', async () => {
@@ -25,21 +23,17 @@ describe('p-signal (node)', () => {
 
             controller.abort()
 
-            try {
-                await promise
-            } catch (err) {
-                expect(isAbortError(err)).toBe(true)
-            }
+            await expect(promise).rejects.toThrow('The operation was aborted.')
         })
 
         it('promise successfully resolved when not aborted', async () => {
             const controller = new AbortController()
 
-            await expect(async () => await pSignal(controller.signal, wait())).not.toThrow()
+            await expect(pSignal(controller.signal, wait())).resolves.toBe(1)
         })
 
         it('allow undefined as "signal" value', async () => {
-            await pSignal(undefined, wait())
+            await expect(pSignal(undefined, wait())).resolves.toBe(1)
         })
 
         // passing both undefined and AbortSignal because they are in if condition branches
@@ -50,11 +44,11 @@ describe('p-signal (node)', () => {
                 })
             }).rejects.toThrowError('dummy')
 
-            await expect(async () => {
-                await pSignal(new AbortController().signal, async () => {
+            await expect(
+                pSignal(new AbortController().signal, async () => {
                     throw new Error('dummy')
-                })
-            }).rejects.toThrowError('dummy')
+                }),
+            ).rejects.toThrowError('dummy')
         })
 
         it(`doesn't synchronously throw an error`, () => {
@@ -83,7 +77,9 @@ describe('p-signal (node)', () => {
         } else {
             it('returns true for AbortError', () => {
                 expect(isAbortError(new DOMException('', 'AbortError'))).toBe(true)
-                expect(isAbortError(new DOMException('regardless of message', 'AbortError'))).toBe(true)
+                expect(isAbortError(new DOMException('regardless of message', 'AbortError'))).toBe(
+                    true,
+                )
             })
         }
 
@@ -93,6 +89,6 @@ describe('p-signal (node)', () => {
     })
 })
 
-function wait(): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, 1))
+function wait(): Promise<1> {
+    return new Promise((resolve) => setTimeout(() => resolve(1), 1))
 }
