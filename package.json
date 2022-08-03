@@ -1,7 +1,7 @@
 {
     "name": "p-signal",
     "version": "4.0.0",
-    "description": "Better way to cancel promises",
+    "description": "Better way to cancel promises using AbortSignal",
     "license": "MIT",
     "repository": "astoilkov/p-signal",
     "funding": "https://github.com/sponsors/astoilkov",
