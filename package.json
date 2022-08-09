@@ -36,6 +36,7 @@
         "AbortError",
         "signal",
         "abort",
+        "abortable",
         "promise",
         "cancel",
         "cancelable",
