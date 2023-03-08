@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-import { isAbortError, pSignal } from '..'
+import { isAbortError, pSignal, AbortError } from '..'
 
 describe('p-signal (node)', () => {
     describe('pSignal()', () => {
@@ -82,6 +82,10 @@ describe('p-signal (node)', () => {
                 )
             })
         }
+
+        it('returns true for an AbortError instance', () => {
+            expect(isAbortError(new AbortError())).toBe(true)
+        })
 
         it('returns false for other errors', () => {
             expect(isAbortError(new Error())).toBe(false)

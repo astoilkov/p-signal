@@ -1,4 +1,4 @@
-import { isAbortError, pSignal } from '..'
+import { AbortError, isAbortError, pSignal } from '..'
 
 describe('p-signal (browser)', () => {
     describe('pSignal()', () => {
@@ -70,6 +70,10 @@ describe('p-signal (browser)', () => {
         it('returns true for AbortError', () => {
             expect(isAbortError(new DOMException('', 'AbortError'))).toBe(true)
             expect(isAbortError(new DOMException('regardless of message', 'AbortError'))).toBe(true)
+        })
+
+        it('returns true for an AbortError instance', () => {
+            expect(isAbortError(new AbortError())).toBe(true)
         })
 
         it('returns false for other errors', () => {
