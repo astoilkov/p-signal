@@ -11,11 +11,6 @@
 npm install p-signal
 ```
 
-Deno:
-```ts
-import { pSignal } from  'https://deno.land/x/p_signal/index.ts'
-```
-
 ## Why
 
 In the past few years, async implementations are on the rise. Canceling promises is an important part of working with async code. For example, a very common pattern is for a user task to be canceled or interrupted with the need to compute the latest value. However a good solution for cancelation doesn't exist (see [Alternatives](#alternatives) section for explanation). In this new async world `p-signal` can help.
@@ -113,3 +108,4 @@ For the past years I've experimented with different ways to cancel promises. Unf
 - [p-cancelable](https://github.com/sindresorhus/p-cancelable) — Create a promise that can be canceled
 - [promise-fun](https://github.com/sindresorhus/promise-fun) — Promise packages, patterns, chat, and tutorials
 - [CAF](https://github.com/getify/CAF) — Cancelable Async Flows (CAF)
+- [Deno async](https://deno.land/std@0.151.0/async) — Async utilities for Deno
