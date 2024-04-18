@@ -1,4 +1,4 @@
-import AbortError from './AbortError.js'
+import AbortError from './AbortError'
 
 export default async function pSignal<T>(
     signal: AbortSignal | undefined,
